@@ -9,15 +9,13 @@ https://uruly.xyz/begin-refreshing-not-changed-color/
 UIRefreshControl tintColor is not work when called beginRefresing in viewDidAppear.
 
 
-
-GIF/refresh_failure.gif
+![GIF](refresh_failure.gif)
 
 ## Solution
 
 The reference is  `SuccessViewController`.
 
-
-GIF/refresh_success.GIF
+![GIF](refresh_success.GIF)
 
 ## Extension
 
