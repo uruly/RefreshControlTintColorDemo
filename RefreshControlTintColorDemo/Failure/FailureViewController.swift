@@ -28,10 +28,15 @@ class FailureViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let refreshControl = collectionView.refreshControl else { return }
+        guard let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing else {
+            return
+        }
         refreshControl.beginRefreshing()
-        refreshControl.sendActions(for: .valueChanged)
-        collectionView.contentOffset.y = -refreshControl.bounds.height
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            self?.collectionView.contentOffset.y = -refreshControl.bounds.height
+            }, completion: { (_) in
+                refreshControl.sendActions(for: .valueChanged)
+        })
     }
 
     @objc private func handleRefreshControl(_ sender: UIRefreshControl) {

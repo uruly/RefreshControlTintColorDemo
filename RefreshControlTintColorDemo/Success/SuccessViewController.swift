@@ -28,11 +28,7 @@ class SuccessViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let refreshControl = collectionView.refreshControl else { return }
         collectionView.beginRefreshing()
-        refreshControl.beginRefreshing()
-        refreshControl.sendActions(for: .valueChanged)
-        collectionView.contentOffset.y = -refreshControl.bounds.height
     }
 
     @objc private func handleRefreshControl(_ sender: UIRefreshControl) {
