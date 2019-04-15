@@ -15,11 +15,21 @@ class ViewController: UIViewController {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            let refreshControl = UIRefreshControl()
+            refreshControl.tintColor = .white
+            refreshControl.addTarget(self, action: #selector(handleRefreshControl(_:)), for: .valueChanged)
+            collectionView.refreshControl = refreshControl
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    @objc private func handleRefreshControl(_ sender: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.collectionView.refreshControl?.endRefreshing()
+        }
     }
 
 }
@@ -28,7 +38,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return 100
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
